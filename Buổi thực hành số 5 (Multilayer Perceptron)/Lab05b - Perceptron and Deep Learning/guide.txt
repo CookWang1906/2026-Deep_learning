@@ -1,3 +1,0 @@
-+ Làm bài tập trong file đính kèm P1 + P2.
-+ Trình bày trong file word, có ghi rõ trang bìa, họ tên sv
-+ Tên file: BT03_PerceptronDL_HoTen_MaSV.docx
