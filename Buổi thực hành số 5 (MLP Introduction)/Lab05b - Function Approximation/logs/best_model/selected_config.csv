@@ -1,0 +1,2 @@
+n_train,n_layers,width,activation,lr,batch_size,max_epochs,patience,weight_decay,seed
+1600,2,8,tanh,0.01,32,500,40,0.0,2

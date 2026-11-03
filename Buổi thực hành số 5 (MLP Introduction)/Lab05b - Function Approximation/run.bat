@@ -1,29 +1,19 @@
 @echo off
 REM ============================================================
-REM  Cách dùng:
-REM    run.bat         : chạy toàn bộ quy trình.
-REM    run.bat quick   : chạy thử nhanh (1 seed, 20 epoch).
-REM                      Kết quả được lưu trong các thư mục quick_*.
-REM
-REM  Các bước:
-REM    [0/5] Kiểm tra và cài đặt thư viện.
-REM    [1/5] Tạo dữ liệu và biểu đồ từ notebook.
-REM    [2/5] Nhóm A: ảnh hưởng của kích thước tập huấn luyện.
-REM    [3/5] Nhóm B: ảnh hưởng của độ rộng tầng ẩn.
-REM    [4/5] Nhóm C: ảnh hưởng của số tầng ẩn.
-REM    [5/5] Chọn mô hình theo validation và đánh giá trên test.
-REM
-REM  Sau mỗi nhóm, tự động kiểm tra summary.csv và dừng lại nếu bị thiếu.
+REM  Usage:
+REM    run.bat         : run the full workflow.
+REM    run.bat quick   : run a quick test (1 seed, 20 epochs).
+REM                      Results are saved in quick_* folders.
 REM ============================================================
 
 chcp 65001 >nul
 set PYTHONIOENCODING=utf-8
 set PYTHONWARNINGS=ignore
 
-REM Chuyển về thư mục gốc của dự án.
+REM Change to the project root directory.
 cd /d "%~dp0"
 
-REM - Xử lý tham số quick -
+REM - Handle the quick parameter -
 set EXTRA=
 set PREFIX=
 if /i "%~1"=="quick" (
@@ -42,12 +32,12 @@ if defined EXTRA (
 )
 echo ============================================================
 
-REM - Tạo thư mục đầu ra nếu còn thiếu -
+REM - Create output directories if they do not exist -
 if not exist logs mkdir logs
 if not exist graphs mkdir graphs
 if not exist "codes\best model" mkdir "codes\best model"
 
-REM - [0/5] Tự động kiểm tra và cài thư viện -  
+REM - [0/5] Automatically check and install dependencies -
 set STEP=[0/5] Check and install dependencies
 echo.
 echo [0/5] Checking dependencies...
@@ -60,7 +50,7 @@ if errorlevel 1 (
     echo     All dependencies are installed.
 )
 
-REM - [1/5] Tạo dữ liệu và biểu đồ bằng Notebook -
+REM - [1/5] Generate data and plots using the notebook -
 set STEP=[1/5] Generate data and plots (Notebook)
 echo.
 echo [1/5] Generating data and plots (Notebook graphs\visualize_data.ipynb)...
@@ -71,7 +61,7 @@ if not exist "graphs\data\true_surface.png" (
     goto :error
 )
 
-REM - [2/5] Nhóm A -
+REM - [2/5] Group A -
 set STEP=[2/5] Group A - Training set size
 echo.
 echo [2/5] Group A - Training set size...
@@ -82,7 +72,7 @@ if not exist "logs\%PREFIX%exp_A_data_size\summary.csv" (
     goto :error
 )
 
-REM - [3/5] Nhóm B -
+REM - [3/5] Group B -
 set STEP=[3/5] Group B - Hidden-layer width
 echo.
 echo [3/5] Group B - Hidden-layer width...
@@ -93,7 +83,7 @@ if not exist "logs\%PREFIX%exp_B_width\summary.csv" (
     goto :error
 )
 
-REM - [4/5] Nhóm C -
+REM - [4/5] Group C -
 set STEP=[4/5] Group C - Number of hidden layers
 echo.
 echo [4/5] Group C - Number of hidden layers...
@@ -104,7 +94,7 @@ if not exist "logs\%PREFIX%exp_C_depth\summary.csv" (
     goto :error
 )
 
-REM - [5/5] Chọn mô hình tốt nhất và đánh giá trên test -
+REM - [5/5] Select the best model and evaluate it on the test set -
 set STEP=[5/5] Select the best model and evaluate on the test set
 echo.
 echo [5/5] Selecting the best model using validation, training it, and evaluating on the test set...

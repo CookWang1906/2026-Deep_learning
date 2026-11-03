@@ -1,0 +1,2 @@
+seed,n_train,n_layers,width,activation,lr,batch_size,max_epochs,patience,weight_decay,MSE,MAE,RMSE
+2,1600,2,8,tanh,0.01,32,500,40,0.0,7.52989749224009e-07,0.0006669419440981705,0.0008677498194894707
