@@ -1,0 +1,8 @@
+# Thư viện nền của dự án: PyTorch, scikit-learn, NumPy, pandas và matplotlib.
+-r ../requirements.txt
+
+# Dùng estimator PyTorch với cross-validation và GridSearchCV.
+skorch ##>=1.2.0,<2.0
+
+# Xuất và kiểm tra mô hình ONNX để trực quan hóa bằng Netron.
+onnx ##>=1.17.0,<2.0
