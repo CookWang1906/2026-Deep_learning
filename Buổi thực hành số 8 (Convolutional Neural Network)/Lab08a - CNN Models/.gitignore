@@ -1,0 +1,5 @@
+# Dữ liệu tải về có thể được tái tạo bằng torchvision.
+data/
+
+# Checkpoint được tạo sau khi huấn luyện CIFAR-10.
+cifar10model.pth
